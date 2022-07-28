@@ -1,0 +1,19 @@
+﻿<Application x:Class="ProductionLineDemo.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ProductionLineDemo"
+            
+             >
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionaries/ButtonDictionary.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/LabelDictionary.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/TextBoxDictionary.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/BordersDictionary.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/DictionaryContainingScrollbarStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
+    </Application.Resources>
+</Application>

@@ -1,0 +1,158 @@
+﻿<Window x:Class="ProductionLineDemo.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:viewmodels="clr-namespace:ProductionLineDemo.ViewModels"
+        xmlns:views="clr-namespace:ProductionLineDemo.Views"
+        
+        Title="MainWindow" Height="768" Width="1366" WindowStyle="none" AllowsTransparency="True" Background="{x:Null}">
+    <Window.Resources>
+        <DataTemplate x:Name="settingsViewTemplate" DataType="{x:Type viewmodels:SettingsViewModel}">
+            <views:SettingsView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="startViewTemplate" DataType="{x:Type viewmodels:StartViewModel}">
+            <views:StartView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="prodSchedViewTemplate" DataType="{x:Type viewmodels:ProductionScheduleViewModel}">
+            <views:ProductionScheduleView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="testingEqViewTemplate" DataType="{x:Type viewmodels:TestingEqViewModel}">
+            <views:TestingEqView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="DashboardsViewTemplate" DataType="{x:Type viewmodels:DashboardsViewModel}">
+            <views:DashboardsView DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
+    
+    
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="35" CornerRadius="35"/>
+    </WindowChrome.WindowChrome>
+    <Border Style="{StaticResource WindowBorder}">
+        <Grid x:Name="MainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="0"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+            <!--#region Grid for the window TopBar-->
+            <Grid VerticalAlignment="Top">
+                <Border BorderBrush="#2E4957" BorderThickness="0.3" Background="Transparent" CornerRadius="10,10,0,0">
+                    <Grid VerticalAlignment="Top" >
+                        <StackPanel Orientation="Horizontal"
+                                    WindowChrome.IsHitTestVisibleInChrome="True">
+
+                            <Image Source="/Resources/Images/robot_48px.png" Width="100" Height="50"/>
+                            <TextBlock Text="Production App Demo"
+                                       Foreground="White"
+                                       FontFamily="Gotham"
+                                       FontWeight="Regular"
+                                       Grid.Column="1"
+                                       FontSize="17"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                            <TextBox Style="{StaticResource SearchBox}" 
+                                     x:Name="txtSearch"
+                                     Text="{Binding monumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     />
+                            <Button Style="{StaticResource SearchBtn}" Content="🔍"
+                                    x:Name="btnSearch" 
+                                    Command="{Binding GetOrderDetails}"
+                                    />
+
+
+
+                        </StackPanel>
+                        <StackPanel 
+                            WindowChrome.IsHitTestVisibleInChrome="True"
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            Height="35"
+                            Margin="0,0,10,0">
+                            <Button Width="30" Height="30" BorderThickness="0" Style="{StaticResource chromaBtnMin}" Command="{Binding MinimizeCommand}"/>
+                            <Button Width="30" Height="30" BorderThickness="0" Style="{StaticResource chromaBtnMax}" Command="{Binding MaximizeCommand}"/>
+                            <Button x:Name="btnClose" Width="30" Height="30" BorderThickness="0" Style="{StaticResource chromaBtnX}" Command="{Binding CloseCommand}"/>
+
+
+
+
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!--#endregion-->
+            
+            <!--#region MainGridView-->
+            <Border Grid.Row="2" Style="{StaticResource WorkspaceBorder}">
+                <Grid x:Name="workspace"
+                  >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Width="75" Style="{StaticResource MenuBorder}">
+                        <StackPanel 
+                            >
+
+                            <Button x:Name="btnHome"
+                            Content="&#59407;"
+                            Command="{Binding cmdUpdateViewModel}"
+                            CommandParameter="Start"
+                            Style="{StaticResource settingsBtn}"
+                            ToolTip="Home"                           
+                            />
+                            
+                            <Button x:Name="btnProdSched"
+                        Content="&#xF0E3;"
+                            Command="{Binding cmdUpdateViewModel}"
+                            CommandParameter="Schedule"
+                            Style="{StaticResource settingsBtn}"
+                            ToolTip="Production Schedule"
+                           />
+                            <Button x:Name="btnTestingStage"
+                        Content="&#xF272;"
+                            Command="{Binding cmdUpdateViewModel}"
+                            CommandParameter="TestingEq"
+                            Style="{StaticResource settingsBtn}"
+                            ToolTip="Testing"
+                           />
+                            <Button x:Name="btnDashboards"
+                        Content="&#xF404;"
+                            Command="{Binding cmdUpdateViewModel}"
+                            CommandParameter="Dashboards"
+                            Style="{StaticResource settingsBtn}"
+                            ToolTip="Detailed Dashboards"
+                            
+                           />
+                            <Button x:Name="btnSettings"
+                        Content="&#59155;"
+                            Command="{Binding cmdUpdateViewModel}"
+                            CommandParameter="Settings"
+                            Style="{StaticResource settingsBtn}"
+                            ToolTip="Settings"
+                           />
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="0"
+                            Grid.Column="1"
+                            Style="{StaticResource ControlBorder}">
+                        <ContentControl Grid.Row="0" Grid.Column="1" Content="{Binding SelectedViewModel}"/>
+                    </Border>
+                    
+                </Grid>
+            </Border>
+
+           
+            
+            
+            <!--#endregion-->
+
+        </Grid>
+        
+    </Border>
+</Window>

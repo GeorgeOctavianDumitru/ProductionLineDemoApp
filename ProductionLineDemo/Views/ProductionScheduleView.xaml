@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="ProductionLineDemo.Views.ProductionScheduleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProductionLineDemo.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border Style="{StaticResource ControlBorder}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="&#xF0E3;" FontFamily="Segoe MDL2 Assets" Margin="10"  FontSize="45"/>
+                <TextBlock Text="Production Plan" FontFamily="Segoe UI"  FontSize="45"/>
+                <Button x:Name="btnLoad"
+                            Content="&#xE72C;"
+                            Command="{Binding FetchPlan}"
+                            CommandParameter="Load"
+                            Style="{StaticResource settingsBtn}"
+                            FontFamily="Segoe MDL2 Assets"
+                            MaxWidth="75"
+                            Height="75"
+                            FontSize="45"
+                            Margin="200,0"
+                            Foreground="Black"
+                            ToolTip="Refresh"                           
+                            />
+            </StackPanel>
+            
+                <ListView Name="PlanGrid"
+                                  Margin="30,5"
+                                  Background="Transparent" 
+                                  ItemsSource="{Binding Plan}"
+                                  BorderThickness="0"
+                                  Grid.Row="1">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+
+                            <GridView x:Name="grdPlan">
+
+
+
+                                <GridViewColumn Header="Order" DisplayMemberBinding="{Binding OrderNumber}"  Width="150" />
+                                <GridViewColumn Header="Product" DisplayMemberBinding="{Binding ProductNumber}" Width="100" />
+                                <GridViewColumn Header="Qty" DisplayMemberBinding="{Binding OrderQty}" Width="50" />
+                                <GridViewColumn Header="Customer" DisplayMemberBinding="{Binding Customer}" Width="150" />
+                                <GridViewColumn Header="Work Centre" DisplayMemberBinding="{Binding WorkCentre}" Width="250" />
+                                <GridViewColumn Header="Capacity Group" DisplayMemberBinding="{Binding CapacityGroup}" Width="150" />
+                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="150" />
+
+                            </GridView>
+                        </ListView.View>
+                   
+                </ListView>
+            
+        </Grid>
+    </Border>
+</UserControl>
